@@ -1,0 +1,621 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+
+  # Basic setup for three package managers
+version: 2
+updates: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#rebase-strategy
+         https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#registries
+         https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#reviewers           # Maintain dependencies for GitHub Actions
+  
+  
+  
+  
+  - package-ecosystem: "gitHub-actions"
+    
+  # Workflow files stored in the default location of `.github/workflows`. (You don't need to specify `/.github/workflows` for `directory`. You can use `directory: "/"`.)
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # Maintain dependencies for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  # Maintain dependencies for Composer
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "Weekly"
+
+
+  # Specify the location of manifest files for each package manager
+version: 2
+updates:
+  - package-ecosystem: "composer"
+  # Files stored in the repository root
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "npm"
+  # Files stored in `app` directory
+    directory: "/app"
+    schedule:
+      interval: "weekly"
+
+  # Specify locations of manifest files for each package manager using `directories`
+version: 2
+updates:
+  - package-ecosystem: "bundler"
+    directories:
+      - "/frontend"
+      - "/backend"
+      - "/admin"
+    schedule:
+      interval: "weekly"
+
+  # Specify the root directory and directories that start with "lib-", using globbing, for locations of manifest files
+version: 2
+updates:
+  - package-ecosystem: "composer"
+    directories:
+      - "/"
+      - "/lib-*"
+    schedule:
+      interval: "weekly"
+
+  # Specify the root directory and directories in the root directory as the location of manifest files using the wildcard character
+version: 2
+updates:
+  - package-ecosystem: "composer"
+    directories:
+      - "*"
+    schedule:
+      interval: "weekly"
+
+   # Specify all directories from the current layer and below recursively, using Globster, for locations of manifest files
+version: 2
+updates:
+  - package-ecosystem: "composer"
+    directories:
+      - "**/*"
+    schedule:
+      interval: "weekly"
+
+  # Use `allow` to specify which dependencies to maintain
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    allow:
+  # Allow updates for Lodash
+      - dependency-name: "lodash"
+  # Allow updates for React and any packages starting "react"
+      - dependency-name: "react*"
+
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    allow:
+  # Allow both direct and indirect updates for all packages
+      - dependency-type: "all"
+
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    allow:
+  # Allow only direct updates for
+  # Django and any packages starting "Django"
+      - dependency-name: "django*"
+        dependency-type: "direct"
+  # Allow only production updates for Sphinx
+      - dependency-name: "sphinx"
+        dependency-type: "production"
+
+
+  # Set update schedule for each package manager
+version: 2
+updates:
+
+  - package-ecosystem: "github-actions"
+  # Workflow files stored in the default location of `.github/workflows`. (You don't need to specify `/.github/workflows` for `directory`. You can use `directory: "/"`.)
+    directory: "/"
+    schedule:
+  # Check for updates to GitHub Actions every weekday
+      interval: "daily"
+
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+  # Check for updates managed by Composer once a week
+      interval: "weekly"        
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    allow:
+      # Allow updates for Lodash
+      - dependency-name: "lodash"
+      # Allow updates for React and any packages starting "react"
+      - dependency-name: "react*"
+
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    allow:
+      # Allow both direct and indirect updates for all packages
+      - dependency-type: "all"
+
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    allow:
+      # Allow only direct updates for
+      # Django and any packages starting "django"
+      - dependency-name: "django*"
+        dependency-type: "direct"
+      # Allow only production updates for Sphinx
+      - dependency-name: "sphinx"
+        dependency-type: "production"
+
+# Specify assignees for pull requests
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Add assignees
+    assignees:
+      - "octocat"
+      # Customize commit messages
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      # Prefix all commit messages with "npm: "
+      prefix: "npm"
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      # Prefix all commit messages with "[docker] " (no colon, but a trailing whitespace)
+      prefix: "[docker] "
+
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Prefix all commit messages with "Composer" plus its scope, that is, a
+    # list of updated dependencies
+    commit-message:
+      prefix: "Composer"
+      include: "scope"
+
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Include a list of updated dependencies
+    # with a prefix determined by the dependency group
+    commit-message:
+      prefix: "pip prod"
+      prefix-development: "pip dev"
+
+# `dependabot.yml` file using the `dependency-type` option to group updates
+# in conjunction with `patterns` and `exclude-patterns`.
+# Grouping rules default to applying to version updates only, since
+# the `applies-to` key is absent.
+
+groups:
+  production-dependencies:
+    dependency-type: "production"
+  development-dependencies:
+    dependency-type: "development"
+    exclude-patterns:
+    - "rubocop*"
+  rubocop:
+    patterns:
+    - "rubocop*"
+    
+# `dependabot.yml` file with customized Bundler configuration
+# In this example, the name of the group is `dev-dependencies`, and
+# only the `patterns` and `exclude-patterns` options are used.
+# Grouping rules apply to version updates only.
+
+version: 2
+updates:
+  # Keep bundler dependencies up to date
+  - package-ecosystem: "bundler"
+    directories:
+      - "/frontend"
+      - "/backend"
+      - "/admin"
+    schedule:
+      interval: "weekly"
+    # Create a group of dependencies to be updated together in one pull request
+    groups:
+       # Specify a name for the group, which will be used in pull request titles
+       # and branch names
+       dev-dependencies:
+          # Define patterns to include dependencies in the group (based on
+          # dependency name)
+          applies-to: version-updates # Applies the group rule to version updates
+          patterns:
+            - "rubocop" # A single dependency name
+            - "rspec*"  # A wildcard string that matches multiple dependency names
+            - "*"       # A wildcard that matches all dependencies in the package
+                        # ecosystem. Note: using "*" may open a large pull request
+          # Define patterns to exclude dependencies from the group (based on
+          # dependency name)
+          exclude-patterns:
+            - "gc_ruboconfig"
+            - "gocardless-*"
+
+# `dependabot.yml` file using the `update-types` option to group updates.
+# Any packages matching the pattern @angular* where the highest resolvable
+# version is minor or patch will be grouped together.
+# Grouping rules apply to version updates only.
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      angular:
+        applies-to: version-updates
+        patterns:
+        - "@angular*"
+        update-types:
+        - "minor"
+        - "patch"
+
+# `dependabot.yml` file using the `update-types` option to group updates
+# in conjunction with an `ignore` condition. If you do not want updates
+# to `major` versions of `@angular*` packages, you can specify an `ignore` condition.
+# Grouping rules for both version updates and security updates are specified.
+
+groups:
+  angular:
+    applies-to: version-updates
+    patterns:
+    - "@angular*"
+    update-types:
+    - "minor"
+    - "patch"
+  minor-and-patch:
+    applies-to: security-updates
+    patterns:
+    - "@angular*"
+    update-types:
+    - "patch"
+    - "minor"
+ignore:
+  - dependency-name: "@angular*"
+    update-types: ["version-update:semver-major"]
+
+# Use `ignore` to specify dependencies that should not be updated
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: "express"
+        # For Express, ignore all Dependabot updates for version 4 and 5
+        versions: ["4.x", "5.x"]
+        # For Lodash, ignore all updates
+      - dependency-name: "lodash"
+        # For AWS SDK, ignore all patch updates for version updates only
+      - dependency-name: "aws-sdk"
+        update-types: ["version-update:semver-patch"]
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    ignore:
+      - dependency-name: 'actions/checkout'
+        
+  # For GitHub Actions, ignore all updates greater than or equal to version 3
+      versions: '>= 3'
+
+#Ignorieren Sie Aktualisierungen über eine bestimmte Version hinaus
+ignore:
+  - dependency-name: "lodash:*"
+    versions: [ ">=1.0.0" ]
+
+#Ignorieren Sie Aktualisierungen über eine bestimmte Version hinaus
+ignore:
+  - dependency-name: "sphinx"
+    versions: [ "[1.1,)" ]
+
+#Patch-Updates ignorieren
+ignore:
+  - dependency-name: "@types/node"
+    update-types: ["version-update:semver-patch"]
+
+#Aktualisierungen für eine bestimmte Version ignorieren
+ignore:
+  - dependency-name: "django*"
+    versions: [ "11" ]        
+
+# Allow external code execution when updating dependencies from private registries
+version: 2
+registries:
+  ruby-github:
+    type: rubygems-server
+    url: https://rubygems.pkg.github.com/octocat/github_api
+    token: ${{secrets.MY_GITHUB_PERSONAL_TOKEN}}
+updates:
+  - package-ecosystem: "bundler"
+    directory: "/rubygems-server"
+    insecure-external-code-execution: allow
+    registries: "*"
+    schedule:
+      interval: "monthly"
+
+# Specify the day for weekly checks
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      # Check for npm updates on Sundays
+      day: "sunday"
+schedule.time
+
+#Standardmäßig prüft Dependabot zu einem zufällig festgelegten Zeitpunkt nach neuen Versionen für das Repository. Verwenden Siescheduleschedule.time, um eine alternative Tageszeit anzugeben, um nach Updates zu suchen (Format: hh:mm).
+
+# Set a time for checks
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      # Check for npm updates at 9am UTC
+      time: "09:00"
+
+# Specify the timezone for checks
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      time: "09:00"
+      # Use Japan Standard Time (UTC +09:00)
+      timezone: "Asia/Tokyo"
+
+# Specify a non-default branch for pull requests for pip
+
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Raise pull requests for version updates
+    # to pip against the `develop` branch
+    target-branch: "develop"
+    # Labels on pull requests for version updates only
+    labels:
+      - "pip dependencies"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      # Check for npm updates on Sundays
+      day: "sunday"
+    # Labels on pull requests for security and version updates
+    labels:
+      - "npm dependencies"
+
+# Configure version updates for both dependencies defined in manifests and vendored dependencies
+version: 2:
+- package-ecosystem: "bundler"
+    
+# Raise pull requests to update vendored dependencies that are checked in to the repository
+    vendor: true
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      # Example configuration for customizing the manifest version strategy
+
+version: 2
+updates:
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # Increase the version requirements for Composer only when required
+    versioning-strategy: increase-if-necessary
+
+# Minimal settings to update dependencies in one private registry
+version: 2
+registries:
+  dockerhub: # Define access for a private registry
+    type: docker-registry
+    url: registry.hub.docker.com
+    username: octocat
+    password: ${{secrets.DOCKERHUB_PASSWORD}}
+updates:
+  - package-ecosystem: "docker"
+    directory: "/docker-registry/dockerhub"
+    registries:
+      - dockerhub # Allow version updates for dependencies in this registry
+    schedule:
+      interval: "monthly"
+registries:
+  composer:
+    type: composer-repository
+    url: https://repo.packagist.com/example-company/
+    username: octocat
+    password: ${{secrets.MY_PACKAGIST_PASSWORD}}
+
+registries:
+  dockerhub:
+    type: docker-registry
+    url: https://registry.hub.docker.com
+    username: octocat
+    password: ${{secrets.MY_DOCKERHUB_PASSWORD}}
+    replaces-base: true
+
+registries:
+  ecr-docker:
+    type: docker-registry
+    url: https://1234567890.dkr.ecr.us-east-1.amazonaws.com
+    username: ${{secrets.ECR_AWS_ACCESS_KEY_ID}}
+    password: ${{secrets.ECR_AWS_SECRET_ACCESS_KEY}}
+    replaces-base: true
+
+
+# Der git-Typ unterstützt Benutzernamen und Passwort. Wenn es sich bei dem Konto um ein GitHub-Konto handelt, können Sie anstelle des Passworts ein persönliches GitHub-Zugriffstoken verwenden.
+
+registries:
+  github-octocat:
+    type: git
+    url: https://github.com
+    username: x-access-token
+    password: ${{secrets.MY_GITHUB_PERSONAL_TOKEN}}
+#hex-organization
+#Der Typ "hex-organization" unterstützt Organisation und Schlüssel.
+#This registry type will prefix-match the path provided in the url option. This means you can provide multiple credentials to the same host, which can be used to access distinct paths. However, if you don't have multiple registries on the same host, we recommend that you omit the path from the url, so that all paths to the registry will receive credentials.
+
+registries:
+  github-hex-org:
+    type: hex-organization
+    organization: github
+    key: ${{secrets.MY_HEX_ORGANIZATION_KEY}}
+
+registries:
+   github-hex-repository:
+     type: hex-repository
+     repo: private-repo
+     url: https://private-repo.example.com
+     auth-key: ${{secrets.MY_AUTH_KEY}}
+     public-key-fingerprint: ${{secrets.MY_PUBLIC_KEY_FINGERPRINT}}
+
+registries:
+  maven-artifactory:
+    type: maven-repository
+    url: https://acme.jfrog.io/artifactory/my-maven-registry
+    username: octocat
+    password: ${{secrets.MY_ARTIFACTORY_PASSWORD}}
+
+Note: When using npm.pkg.github.com, don't include a path. Instead use the https://npm.pkg.github.com URL without a path.
+registries:
+  npm-npmjs:
+    type: npm-registry
+    url: https://registry.npmjs.org
+    username: octocat
+    password: ${{secrets.MY_NPM_PASSWORD}}  # Must be an unencoded password
+    replaces-base: true
+registries:
+  npm-github:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    token: ${{secrets.MY_GITHUB_PERSONAL_TOKEN}}
+    replaces-base: true
+
+registries:
+  nuget-example:
+    type: nuget-feed
+    url: https://nuget.example.com/v3/index.json
+    username: octocat@example.com
+    password: ${{secrets.MY_NUGET_PASSWORD}}
+registries:
+  nuget-azure-devops:
+    type: nuget-feed
+    url: https://pkgs.dev.azure.com/.../_packaging/My_Feed/nuget/v3/index.json
+    username: octocat@example.com
+    password: ${{secrets.MY_AZURE_DEVOPS_TOKEN}}
+pub-repository
+
+Der pub-repositoryTyp unterstützt eine URL und ein Token.
+
+registries:
+  my-pub-registry:
+    type: pub-repository
+    url: https://example-private-pub-repo.dev/optional-path
+    token: ${{secrets.MY_PUB_TOKEN}}
+updates:
+  - package-ecosystem: "pub"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    registries:
+      - my-pub-registry
+
+registries:
+  python-example:
+    type: python-index
+    url: https://example.com/_packaging/my-feed/pypi/example
+    username: octocat
+    password: ${{secrets.MY_BASIC_AUTH_PASSWORD}}
+    replaces-base: true
+registries:
+  python-azure:
+    type: python-index
+    url: https://pkgs.dev.azure.com/octocat/_packaging/my-feed/pypi/example
+    username: octocat@example.com
+    password: ${{secrets.MY_AZURE_DEVOPS_TOKEN}}
+    replaces-base: true
+
+registries:
+  ruby-example:
+    type: rubygems-server
+    url: https://rubygems.example.com
+    username: octocat@example.com
+    password: ${{secrets.MY_RUBYGEMS_PASSWORD}}
+    replaces-base: true
+registries:
+  ruby-github:
+    type: rubygems-server
+    url: https://rubygems.pkg.github.com/octocat/github_api
+    token: ${{secrets.MY_GITHUB_PERSONAL_TOKEN}}
+    replaces-base: true
+
+registries:
+  terraform-example:
+    type: terraform-registry
+    url: https://terraform.example.com
+    token: ${{secrets.MY_TERRAFORM_API_TOKEN}}
+
+
+# Configure beta ecosystem
+
+version: 2
+enable-beta-ecosystems: true
+updates:
+  - package-ecosystem: "beta-ecosystem"
+    directory: "/"
+    schedule:
+      interval: "weekly"
